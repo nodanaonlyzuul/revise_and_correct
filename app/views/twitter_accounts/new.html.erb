@@ -1,0 +1,7 @@
+<%= form_for @twitter_account do |f| %>
+  <div class="form-group">
+    <%= f.label :screen_name %>
+    <%= f.text_field :screen_name, class: 'form-control', autofocus: true, placeholder: "@example-screen-name" %>
+  </div>
+  <%= f.submit "Watch", data: {disable_with: 'Saving...'} %>
+<% end %>

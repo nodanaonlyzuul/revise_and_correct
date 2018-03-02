@@ -25,6 +25,7 @@ group :development, :test do
   gem 'pry', '~> 0.11.3'
   gem 'thin', '~> 1.7', '>= 1.7.2'
   gem 'rspec-rails', '~> 3.7'
+  gem 'dotenv-rails', '~> 2.2', '>= 2.2.1'
 end
 
 group :test do

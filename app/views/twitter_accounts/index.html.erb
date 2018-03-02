@@ -1,7 +1,7 @@
 <div class="row">
-  <% 5.times.each do |x| %>
+  <% @twitter_accounts.each do |twitter_account| %>
     <div class="col">
-      hi
+      <%= twitter_account.screen_name %>
     </div>
   <% end %>
 </div>

@@ -20,7 +20,7 @@ TwitterAccount.find_each do |twitter_account|
      options.merge!(since_id: last_tweet.twitter_id)
    end
 
-   recent_tweets = @twitter_client.user_timeline(twitter_account, options)
+   recent_tweets = @twitter_client.user_timeline(twitter_account.screen_name, options)
 
    all_tweets_by_this_account = twitter_account.tweets.pluck(:twitter_id)
 

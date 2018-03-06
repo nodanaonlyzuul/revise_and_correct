@@ -1,0 +1,26 @@
+<div class="row">
+  <div style="margin-left: 15px;" class="col">
+    <h1>Recent Tweets</h1>
+  </div>
+</div>
+<% @tweets.each do |tweet| %>
+  <div class="row" style="margin: 15px 0px">
+
+    <div class="col">
+      <div style="background-color: #1DA1F2; padding: 5px;color: #fff;">
+        <h3>@<%= tweet.twitter_account.screen_name %></h3>
+        <%= simple_format tweet.text %>
+        <% if tweet.original_response && JSON.parse(tweet.original_response)['entities']['media'] %>
+          <% JSON.parse(tweet.original_response)['entities']['media'].each do |response_media| %>
+            <%= image_tag response_media['media_url'], style: "max-width: 200px;" %>
+          <% end %>
+        <% else %>
+        <% end %>
+
+      </div>
+      <div style="background-color:#999; padding: 5px;">
+        <%= pluralize(tweet.retweets_count, 'Tweet') %>
+      </div>
+    </div>
+  </div>
+<% end %>

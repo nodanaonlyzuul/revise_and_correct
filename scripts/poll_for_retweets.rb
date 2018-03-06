@@ -2,41 +2,34 @@
 require File.expand_path('../../config/environment',  __FILE__)
 require 'twitter_client'
 
-@logger = Logger.new(File.join(Rails.root, 'log', 'poll_for_new_tweets.log'), File::WRONLY | File::APPEND |  File::CREAT)
+@logger = Logger.new(File.join(Rails.root, 'log', 'poll_for_retweets.log'), File::WRONLY | File::APPEND |  File::CREAT)
 @twitter_client = TwitterClient.new.rest_client
 
-TwitterAccount.find_each do |twitter_account|
-   @logger.info("Looking for Tweets for '#{twitter_account.screen_name}'")
+condition_arel = Tweet.where("tweeted_at >= ?", 48.hours.ago)
+recent_tweet_count = condition_arel.count
+@logger.info("there have been #{recent_tweet_count} tweets in made in the last 48 hours")
 
-   options = {
-     trim_user: true,
-     count: 2
-   }
+condition_arel.find_each do |tweet|
+  @logger.info("Checking for retweets of Tweet #{tweet.id} (#{tweet.twitter_id})")
+  already_saved_retweets = tweet.retweets.pluck(:twitter_id)
+  retweets = @twitter_client.retweets(tweet.twitter_id, count: 100)
 
-   # TODO: Look into include_rts
-   last_tweet = twitter_account.tweets.order('tweeted_at DESC').first
-
-   if last_tweet
-     options.merge!(since_id: last_tweet.twitter_id)
-   end
-
-   recent_tweets = @twitter_client.user_timeline(twitter_account.screen_name, options)
-
-   all_tweets_by_this_account = twitter_account.tweets.pluck(:twitter_id)
-
-   recent_tweets.each do |recent_tweet|
-     if all_tweets_by_this_account.include?(recent_tweet.id.to_s)
-       @logger.info "skipping tweet #{recent_tweet.id}, it's already saved"
-     else
-       @logger.info "saving new tweet #{recent_tweet.id} for user #{twitter_account.screen_name}"
-       tweet = Tweet.create(
-         twitter_account: twitter_account,
-         twitter_id: recent_tweet.id.to_s,
-         text: recent_tweet.full_text,
-         original_response: recent_tweet.to_json,
-         tweeted_at: recent_tweet.created_at
-       )
-     end
-   end
+  retweets.each do |retweet|
+    if already_saved_retweets.include?(retweet.id.to_s)
+      @logger.info("Skipping retweet #{retweet.id.to_s}, already saved.")
+    else
+      new_retweet = Retweet.new(
+        tweet: tweet,
+        twitter_id: retweet.id.to_s,
+        original_response: tweet.to_json
+      )
+      if new_retweet.save
+        @logger.info("Saved retweet #{new_retweet.id.to_s} of #{tweet.id} tweet (#{tweet.twitter_id}).")
+      else
+        require 'pry'; binding.pry;
+        @logger.error("Couldn't save retweet: #{new_retweet.errors.full_messages.join(',')}")
+      end
+    end
+  end
 
 end

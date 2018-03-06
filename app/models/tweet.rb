@@ -1,6 +1,6 @@
 class Tweet < ApplicationRecord
   belongs_to :twitter_account
-  has_many :retweets
+  has_many :retweets, dependent: :destroy
   validates_presence_of :twitter_account
   validates_presence_of :twitter_id
   validates_presence_of :text

@@ -8,7 +8,8 @@
 
     <div class="col">
       <div style="background-color: #1DA1F2; padding: 5px;color: #fff;">
-        <h3>@<%= tweet.twitter_account.screen_name %></h3>
+        <h3><%= tweet.twitter_account.screen_name %></h3>
+        <%= link_to "link", "https://twitter.com/#{tweet.twitter_account.screen_name}/status/#{tweet.twitter_id}", target: '_new' %>
         <%= simple_format tweet.text %>
         <% if tweet.original_response && JSON.parse(tweet.original_response)['entities']['media'] %>
           <% JSON.parse(tweet.original_response)['entities']['media'].each do |response_media| %>

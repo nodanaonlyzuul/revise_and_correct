@@ -6,7 +6,7 @@ class CreateTweets < ActiveRecord::Migration[5.1]
       t.integer :reply_id, index: true
       t.string  :text
       t.datetime :tweeted_at
-      t.integer :retweet_count
+      t.integer :retweets_count
       t.jsonb   :original_response
       t.timestamps
     end

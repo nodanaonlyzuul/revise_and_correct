@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20180304211929) do
     t.integer "reply_id"
     t.string "text"
     t.datetime "tweeted_at"
-    t.integer "retweet_count"
+    t.integer "retweets_count"
     t.jsonb "original_response"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

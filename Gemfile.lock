@@ -49,6 +49,8 @@ GEM
       autoprefixer-rails (>= 6.0.3)
       popper_js (>= 1.12.9, < 2)
       sass (>= 3.5.2)
+    bootstrap-will_paginate (1.0.0)
+      will_paginate
     buftok (0.2.0)
     builder (3.2.3)
     coderay (1.1.2)
@@ -237,6 +239,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootstrap (~> 4.0)
+  bootstrap-will_paginate (~> 1.0)
   dotenv-rails (~> 2.2, >= 2.2.1)
   factory_bot_rails (~> 4.8, >= 4.8.2)
   jbuilder (~> 2.5)

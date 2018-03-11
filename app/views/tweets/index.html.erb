@@ -1,5 +1,12 @@
+<% is_nested = params[:twitter_account_id].present?  %>
 <div class="row">
-  <h1>Tweets</h1>
+  <div class="page-header">
+    <h1>Tweets <%= is_nested ? "by #{@tweets.first.twitter_account.screen_name}" : '' %></h1>
+  </div>
+  <% if is_nested %>
+    <br>
+    <%= link_to "All tweets", tweets_path %>
+  <% end %>
   <table class="table">
     <thead>
       <tr>
@@ -7,15 +14,18 @@
         <th>Tweet</th>
         <th>Media</th>
         <th>Retweets</th>
-        <th>Tweeted At<th>
+        <th>Tweeted<th>
       </tr>
     </thead>
     <tbody>
       <% @tweets.each do |tweet| %>
       <tr class="unread-tweet">
-        <td><%= tweet.twitter_account.screen_name %></td>
+
+        <td><%= link_to tweet.twitter_account.screen_name, twitter_account_tweets_path(tweet.twitter_account) %></td>
         <td>
           <%= link_to tweet.text, "https://twitter.com/#{tweet.twitter_account.screen_name}/status/#{tweet.twitter_id}", target: '_new' %>
+          <br>
+          <%= link_to "reply", new_tweet_reply_path(tweet) %>
         </td>
         <td>
           <% if tweet.original_response && JSON.parse(tweet.original_response)['entities']['media'] %>
@@ -25,7 +35,7 @@
           <% end %>
         </td>
         <td><%= tweet.retweets.count %></td>
-        <td><%= tweet.tweeted_at %></td>
+        <td title="hi"><%= distance_of_time_in_words_to_now(tweet.tweeted_at) %> ago</td>
       </tr>
       <% end %>
     </tbody>

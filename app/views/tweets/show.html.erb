@@ -1,23 +1,24 @@
 <div class="row">
   <div class="col">
-    <h1>Tweet</h1>
+    <%= render partial: 'shared/tweet_card', locals: {tweet: @tweet} %>
+    <% if @tweet.reply %>
+      <div class="card" style="margin-top: 15px;">
+        <h3 class="card-title">Your Reply</h3>
+        <p class="card-text"><%= simple_format(@tweet.reply.text) %></p>
+      </div>
+    <% end %>
   </div>
-</div>
 
-<div class="row">
   <div class="col">
-    <h3>Original Tweet</h3>
-    <div class="well">
-      <%= @tweet.text %>
+    <h3>Retweet Tracking</h3>
+    <div class="progress">
+      <div class="progress-bar bg-success" role="progressbar" style="width: 25%;">
+        <%= @tweet.retweets.replied_to.count %>
+      </div>
+
+      <div class="progress-bar bg-warning" role="progressbar" style="width:75%;">
+        <%= @tweet.retweets.not_replied_to.count %>
+      </div>
     </div>
   </div>
 </div>
-
-<% if @tweet.reply %>
-  <div class="row">
-    <div class="col">
-      <h3>Your Reply</h3>
-      <%= @tweet.reply.text %>
-    </div>
-  </div>
-<% end %>

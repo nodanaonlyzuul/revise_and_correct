@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">Tweet by @<%= tweet.twitter_account.screen_name %></h3>
+    <p class="card-text">
+      <%= tweet.text %>
+      <% if tweet.original_response && JSON.parse(tweet.original_response)['entities']['media'] %>
+        <% JSON.parse(tweet.original_response)['entities']['media'].each do |response_media| %>
+          <br>
+          <%= image_tag response_media['media_url'], style: "max-width: 100%;" %>
+        <% end %>
+      <% end %>
+    </p>
+  </div>
+</div>

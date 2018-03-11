@@ -1,9 +1,23 @@
 <div class="row">
-  <h1>Tweet</h1>
+  <div class="col">
+    <h1>Tweet</h1>
+  </div>
 </div>
 
 <div class="row">
-  <div class="well">
-    <%= @tweet.text %>
+  <div class="col">
+    <h3>Original Tweet</h3>
+    <div class="well">
+      <%= @tweet.text %>
+    </div>
   </div>
 </div>
+
+<% if @tweet.reply %>
+  <div class="row">
+    <div class="col">
+      <h3>Your Reply</h3>
+      <%= @tweet.reply.text %>
+    </div>
+  </div>
+<% end %>

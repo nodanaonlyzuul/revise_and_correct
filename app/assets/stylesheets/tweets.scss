@@ -1,6 +1,10 @@
-tr.unread-tweet {
+tr.unreplied-tweet {
   background-color: #fff;
   td {
     font-weight: bold;
   }
+}
+
+tr.replied-tweet {
+  background-color: #f4f4f4;
 }

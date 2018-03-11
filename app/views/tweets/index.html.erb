@@ -19,13 +19,14 @@
     </thead>
     <tbody>
       <% @tweets.each do |tweet| %>
-      <tr class="unread-tweet">
-
+      <tr class="<%= tweet.reply ? 'replied-tweet' : 'unreplied-tweet' %>">
         <td><%= link_to tweet.twitter_account.screen_name, twitter_account_tweets_path(tweet.twitter_account) %></td>
         <td>
-          <%= link_to tweet.text, "https://twitter.com/#{tweet.twitter_account.screen_name}/status/#{tweet.twitter_id}", target: '_new' %>
-          <br>
-          <%= link_to "reply", new_tweet_reply_path(tweet) %>
+          <%= link_to tweet.text, tweet_path(tweet) %>
+          <% if tweet.reply.nil? %>
+            <br>
+            <%= link_to "reply", new_tweet_reply_path(tweet) %>
+          <% end %>
         </td>
         <td>
           <% if tweet.original_response && JSON.parse(tweet.original_response)['entities']['media'] %>

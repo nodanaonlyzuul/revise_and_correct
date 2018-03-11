@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col">
+    <h1>New Reply</h1>
+    <div class="well">
+      <%= @tweet.text %>
+      <% if @tweet.original_response && JSON.parse(@tweet.original_response)['entities']['media'] %>
+        <% JSON.parse(@tweet.original_response)['entities']['media'].each do |response_media| %>
+          <br>
+          <%= image_tag response_media['media_url'], style: "max-width: 80%;" %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <%= form_for [@tweet, @reply] do |form| %>
+      <div class="form-group">
+        <%= form.label :text %>
+        <%= form.text_area :text %>
+        <%= form.submit "Reply", data: {disable_with: 'Replying...'} %>
+      </div>
+    <% end %>
+
+  </div>
+
+</div>

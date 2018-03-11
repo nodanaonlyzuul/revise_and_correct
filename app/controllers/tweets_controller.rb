@@ -7,4 +7,8 @@ class TweetsController < ApplicationController
     end
     @tweets = arel.paginate(page: params[:page]).order("tweeted_at DESC")
   end
+
+  def show
+    @tweet = Tweet.find(params[:id])
+  end
 end

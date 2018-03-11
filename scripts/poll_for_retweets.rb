@@ -26,7 +26,6 @@ condition_arel.find_each do |tweet|
       if new_retweet.save
         @logger.info("Saved retweet #{new_retweet.id.to_s} of tweet #{tweet.id} (#{tweet.twitter_id}).")
       else
-        require 'pry'; binding.pry;
         @logger.error("Couldn't save retweet: #{new_retweet.errors.full_messages.join(',')}")
       end
     end

@@ -10,16 +10,22 @@
   </div>
 
   <div class="col">
-    <% percent_replied_to = @tweet.retweets.replied_to.count / @tweet.retweets.count %>
-    <h3>Retweet Tracking</h3>
-    <div class="progress">
-      <div class="progress-bar bg-success" role="progressbar" style="width: <%= percent_replied_to %>%;">
-        <%= @tweet.retweets.replied_to.count %>
-      </div>
+    <% if @tweet.reply %>
+      <% percent_replied_to = @tweet.retweets.replied_to.count / @tweet.retweets.count %>
+      <h3>Retweet Tracking</h3>
+      <div class="progress">
+        <div class="progress-bar bg-success" role="progressbar" style="width: <%= percent_replied_to %>%;">
+          <%= @tweet.retweets.replied_to.count %>
+        </div>
 
-      <div class="progress-bar bg-warning" role="progressbar" style="width:<%= 100 - percent_replied_to  %>%;">
-        <%= @tweet.retweets.not_replied_to.count %>
+        <div class="progress-bar bg-warning" role="progressbar" style="width:<%= 100 - percent_replied_to  %>%;">
+          <%= @tweet.retweets.not_replied_to.count %>
+        </div>
       </div>
-    </div>
+    <% else %>
+      <h3>You haven't replied to this tweet.</h3>
+      <%= link_to "Create a Reply", new_tweet_reply_path(@tweet) %>
+    <% end %>
   </div>
+
 </div>

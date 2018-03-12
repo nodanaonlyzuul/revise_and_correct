@@ -12,11 +12,13 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container-fluid">
       <nav class="navbar navbar-light bg-light" style="margin-bottom: 20px;">
         <%= link_to "All Tweets", root_path,  class: 'navbar-brand' %>
       </nav>
-      <%= yield %>
+      <div class="container">
+        <%= yield %>
+      </div>
     </div>
   </body>
 </html>

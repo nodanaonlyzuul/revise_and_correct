@@ -1,45 +1,58 @@
 <% is_nested = params[:twitter_account_id].present?  %>
-<div class="row">
-  <div class="page-header">
-    <h1>Tweets <%= is_nested ? "by #{@tweets.first.twitter_account.screen_name}" : '' %></h1>
+  <div class="row">
+    <div class="col">
+      <div class="page-header">
+        <h1>Tweets
+          <%= is_nested ? "by #{@tweets.first.twitter_account.screen_name}" : '' %></h1>
+      </div>
+    </div>
   </div>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Account</th>
-        <th>Tweet</th>
-        <th>Media</th>
-        <th>Retweets</th>
-        <th>Tweeted<th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @tweets.each do |tweet| %>
-      <tr class="<%= tweet.reply ? 'replied-tweet' : 'unreplied-tweet' %>">
-        <td><%= link_to tweet.twitter_account.screen_name, twitter_account_tweets_path(tweet.twitter_account) %></td>
-        <td>
-          <%= link_to tweet.text, tweet_path(tweet) %>
-          <% if tweet.reply.nil? %>
-            <br>
-            <%= link_to "reply", new_tweet_reply_path(tweet) %>
-          <% end %>
-        </td>
-        <td>
-          <% if tweet.original_response && JSON.parse(tweet.original_response)['entities']['media'] %>
-            <% JSON.parse(tweet.original_response)['entities']['media'].each do |response_media| %>
-              <%= image_tag response_media['media_url'], style: "max-width: 200px;" %>
-            <% end %>
-          <% end %>
-        </td>
-        <td><%= tweet.retweets.count %></td>
-        <td title="hi"><%= distance_of_time_in_words_to_now(tweet.tweeted_at) %> ago</td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+  <div class="row">
+    <% if @tweets.empty? %>
+      <div class="col">
+        <h3>No tweets here?</h3>
+        <p>Try <%= link_to "watching a twitter account", new_twitter_account_path %></p>
+      </div>
 
-<div class="row">
-  <%= will_paginate @tweets, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer %>
-</div>
+    <% else %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Account</th>
+            <th>Tweet</th>
+            <th>Media</th>
+            <th>Retweets</th>
+            <th>Tweeted<th></tr>
+            </thead>
+            <tbody>
+              <% @tweets.each do |tweet| %>
+                <tr class="<%= tweet.reply ? 'replied-tweet' : 'unreplied-tweet' %>">
+                  <td><%= link_to tweet.twitter_account.screen_name, twitter_account_tweets_path(tweet.twitter_account) %></td>
+                  <td>
+                    <%= link_to tweet.text, tweet_path(tweet) %>
+                    <% if tweet.reply.nil? %>
+                      <br>
+                      <%= link_to "reply", new_tweet_reply_path(tweet) %>
+                    <% end %>
+                  </td>
+                  <td>
+                    <% if tweet.original_response && JSON.parse(tweet.original_response)['entities']['media'] %>
+                      <% JSON.parse(tweet.original_response)['entities']['media'].each do |response_media| %>
+                        <%= image_tag response_media['media_url'], style: "max-width: 200px;" %>
+                      <% end %>
+                    <% end %>
+                  </td>
+                  <td><%= tweet.retweets.count %></td>
+                  <td title="hi"><%= distance_of_time_in_words_to_now(tweet.tweeted_at) %>
+                    ago</td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+      </div>
+
+      <div class="row">
+        <%= will_paginate @tweets, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer %>
+      </div>

@@ -3,7 +3,7 @@
     <div class="col">
       <div class="page-header">
         <h1>Tweets
-          <%= is_nested ? "by #{@tweets.first.twitter_account.screen_name}" : '' %></h1>
+          <%= is_nested ? "by @#{@twitter_account.screen_name}" : '' %></h1>
       </div>
     </div>
   </div>
@@ -31,10 +31,6 @@
                   <td><%= link_to tweet.twitter_account.screen_name, twitter_account_tweets_path(tweet.twitter_account) %></td>
                   <td>
                     <%= link_to tweet.text, tweet_path(tweet) %>
-                    <% if tweet.reply.nil? %>
-                      <br>
-                      <%= link_to "reply", new_tweet_reply_path(tweet) %>
-                    <% end %>
                   </td>
                   <td>
                     <% if tweet.original_response && JSON.parse(tweet.original_response)['entities']['media'] %>

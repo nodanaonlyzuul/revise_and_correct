@@ -2,7 +2,7 @@ require 'twitter_client'
 
 class TwitterAccountsController < ApplicationController
   def index
-    @twitter_accounts = TwitterAccount.all
+    @twitter_accounts = TwitterAccount.order('screen_name').all
   end
 
   def new

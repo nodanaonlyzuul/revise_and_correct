@@ -1,7 +1,8 @@
 class TweetsController < ApplicationController
   def index
     if params[:twitter_account_id]
-      arel = TwitterAccount.find(params[:twitter_account_id]).tweets
+      @twitter_account = TwitterAccount.find(params[:twitter_account_id])
+      arel = @twitter_account.tweets
     else
       arel = Tweet
     end

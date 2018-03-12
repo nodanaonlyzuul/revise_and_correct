@@ -1,9 +1,11 @@
 <div class="row">
-  <% @twitter_accounts.each do |twitter_account| %>
-    <div class="col">
-      <%= twitter_account.screen_name %>
-    </div>
-  <% end %>
+  <div class="col">
+    <% @twitter_accounts.each do |twitter_account| %>
+      <div>
+        <%= link_to "@#{twitter_account.screen_name}", twitter_account_tweets_path(twitter_account) %>
+      </div>
+    <% end %>
+  </div>
 </div>
 
 <%= link_to "Watch A New Twitter Account", new_twitter_account_path %>

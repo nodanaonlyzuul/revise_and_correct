@@ -5,6 +5,6 @@ class Retweet < ApplicationRecord
   validates_presence_of :original_response
   validates_uniqueness_of :twitter_id, scope: :tweet_id
 
-  scope :replied_to, -> { where('replied_at != ?', nil) }
+  scope :replied_to, -> { where('replied_at IS NOT ?', nil) }
   scope :not_replied_to, -> { where('replied_at IS ?', nil) }
 end

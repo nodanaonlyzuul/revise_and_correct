@@ -11,7 +11,8 @@
 
   <div class="col">
     <% if @tweet.reply %>
-      <% percent_replied_to = @tweet.retweets.replied_to.count / @tweet.retweets.count %>
+      <% percent_replied_to = (@tweet.retweets.replied_to.count / @tweet.retweets.count.to_f) * 100 %>
+
       <h3>Retweet Tracking</h3>
       <div class="progress">
         <div class="progress-bar bg-success" role="progressbar" style="width: <%= percent_replied_to %>%;">

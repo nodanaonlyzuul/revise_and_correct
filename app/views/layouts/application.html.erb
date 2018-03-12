@@ -7,14 +7,15 @@
     <title><%= @title || 'ReviseAndCorrect' %></title>
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
     <div class="container-fluid">
-      <nav class="navbar navbar-light bg-light" style="margin-bottom: 20px;">
-        <%= link_to "All Tweets", root_path,  class: 'navbar-brand' %>
+      <nav class="navbar navbar-light bg-light mr-auto" style="margin-bottom: 20px;">
+        <%= link_to "All Tweets", root_path, class: 'navbar-brand' %>
+        <%= link_to 'Watch a new Twitter Account', new_twitter_account_path, class: 'nav-link' %>
       </nav>
       <div class="container">
         <%= yield %>

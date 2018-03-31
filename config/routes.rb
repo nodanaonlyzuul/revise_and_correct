@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get '/auth/twitter', to: "sessions#new"
 
   resource :login, only: :new
-  resources :sessions, only: :create
+  resources :sessions, only: [:create, :destroy]
 
   resources :twitter_accounts do
     resources :tweets, shallow: true, only: :index

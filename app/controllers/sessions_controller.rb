@@ -6,6 +6,10 @@ class SessionsController < ApplicationController
     redirect_to root_url
   end
 
+  def destroy
+    # TODO: remove current_user from session and redirect_to new_logins
+  end
+
   protected
 
   def auth_hash

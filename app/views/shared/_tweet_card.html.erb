@@ -10,7 +10,10 @@
         <% end %>
       <% end %>
       <div>
-        <%= tweet.tweeted_at.in_time_zone('Eastern Time (US & Canada)') %>
+        Retweets: <%= tweet.retweets.count %>
+      </div>
+      <div>
+        Tweeted: <%= tweet.tweeted_at.in_time_zone('Eastern Time (US & Canada)') %>
       </div>
       <div>
         <%= link_to 'View on Twitter', url_of_tweet(tweet), target: '_new' %>

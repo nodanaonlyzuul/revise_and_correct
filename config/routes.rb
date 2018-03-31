@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
   # omniauth callback
-  get '/auth/:provider/callback', to: 'sessions#create'
+  get '/auth/twitter/callback', to: 'sessions#create'
+  get '/auth/twitter', to: "sessions#new"
 
+  resource :login, only: :new
   resources :sessions, only: :create
-  
+
   resources :twitter_accounts do
     resources :tweets, shallow: true, only: :index
   end

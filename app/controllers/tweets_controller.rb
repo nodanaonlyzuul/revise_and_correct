@@ -6,7 +6,7 @@ class TweetsController < ApplicationController
     else
       arel = Tweet
     end
-    @tweets = arel.paginate(page: params[:page]).order("tweeted_at DESC")
+    @tweets = arel.includes(:reply, :twitter_account).paginate(page: params[:page]).order("tweeted_at DESC")
   end
 
   def show

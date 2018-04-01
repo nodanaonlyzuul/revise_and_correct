@@ -1,13 +1,15 @@
 class SessionsController < ApplicationController
+  skip_before_action :check_logged_in
+
   def create
-    # Do something link this to avoid people from_logging_in
-    # @user = User.find_or_create_from_auth_hash(auth_hash)
-    session[:current_user] = auth_hash[:info]
+    @user = User.find_by_screen_name(auth_hash.info.nickname)
+    session[:user_id] = @user.id
     redirect_to root_url
   end
 
   def destroy
-    # TODO: remove current_user from session and redirect_to new_logins
+    session[:user_id] = nil
+    redirect_to new_login_path
   end
 
   protected

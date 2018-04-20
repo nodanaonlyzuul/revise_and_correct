@@ -1,0 +1,11 @@
+{
+  "name": "revise_and_correct",
+  "description": "Hey this is fun",
+  "keywords": [
+  ],
+  "scripts": {
+    "dokku": {
+      "postdeploy": "bundle exec rake db:migrate"
+    }
+  }
+}

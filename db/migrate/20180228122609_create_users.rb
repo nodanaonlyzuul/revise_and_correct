@@ -4,8 +4,7 @@ class CreateUsers < ActiveRecord::Migration[5.1]
       t.string :name
       t.string :email
       t.string :screen_name
-      t.string :password_digest
-
+      t.string :twitter_id
       t.timestamps
     end
   end

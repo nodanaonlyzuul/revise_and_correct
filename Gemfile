@@ -22,6 +22,8 @@ gem 'bootstrap-will_paginate', '~> 1.0'
 # Use ActiveModel has_secure_password
 gem 'bcrypt',  '~> 3.1.7'
 gem 'twitter', '~> 6.2'
+gem "omniauth", "~> 1.8"
+gem 'omniauth-twitter', '~> 1.4'
 
 group :development, :test do
   gem 'pry', '~> 0.11.3'
@@ -36,6 +38,7 @@ group :test do
 end
 
 group :development do
+  gem 'rubocop', '~> 0.54.0'
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'

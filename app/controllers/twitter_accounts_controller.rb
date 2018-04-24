@@ -10,7 +10,7 @@ class TwitterAccountsController < ApplicationController
   end
 
   def create
-    api_twitter_account = TwitterClient.new.rest_client.user(params[:twitter_account][:screen_name])
+    api_twitter_account = TwitterClient.new(key: current_user.key, secret: current_user.secret).rest_client.user(params[:twitter_account][:screen_name])
     @twitter_account = TwitterAccount.new(
       twitter_id:  api_twitter_account.id,
       screen_name: api_twitter_account.screen_name,

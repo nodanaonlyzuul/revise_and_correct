@@ -12,4 +12,9 @@ class TweetsController < ApplicationController
   def show
     @tweet = Tweet.find(params[:id])
   end
+
+  def create
+    TweetFetcher.new(current_user).fetch!
+    redirect_to tweets_path
+  end
 end

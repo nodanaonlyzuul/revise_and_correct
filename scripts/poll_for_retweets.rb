@@ -5,7 +5,7 @@ require 'twitter_client'
 @logger = Logger.new(File.join(Rails.root, 'log', 'poll_for_retweets.log'), File::WRONLY | File::APPEND |  File::CREAT)
 
 User.with_twitter_credentials.each do |user|
-  @twitter_client = TwitterClient.new(key: user.key, secret: user.secret).rest_client
+  @twitter_client = TwitterClient.new.rest_client
 
   @logger.info "Searching for retweets on behalf of @#{user.screen_name}"
 

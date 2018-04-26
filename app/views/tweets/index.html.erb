@@ -25,7 +25,6 @@
             <th>Account</th>
             <th>Tweet</th>
             <th>Media</th>
-            <th>Retweets</th>
             <th>Tweeted<th></tr>
             </thead>
             <tbody>
@@ -33,6 +32,12 @@
                 <tr class="<%= tweet.reply ? 'replied-tweet' : 'unreplied-tweet' %>">
                   <td><%= link_to tweet.twitter_account.screen_name, twitter_account_tweets_path(tweet.twitter_account) %></td>
                   <td>
+                    <% if tweet.reply %>
+                    <p>
+                      <strong>You have replied to this tweet</strong>
+                    </p>
+
+                    <% end %>
                     <%= link_to tweet.text, tweet_path(tweet) %>
                   </td>
                   <td>
@@ -42,8 +47,7 @@
                       <% end %>
                     <% end %>
                   </td>
-                  <td><%= tweet.retweets.count %></td>
-                  <td title="hi"><%= distance_of_time_in_words_to_now(tweet.tweeted_at) %>
+                  <td><%= distance_of_time_in_words_to_now(tweet.tweeted_at) %>
                     ago</td>
                 </tr>
               <% end %>

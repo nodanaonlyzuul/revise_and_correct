@@ -14,7 +14,7 @@
     <% if @tweet.reply %>
       <% percent_replied_to = (@tweet.retweets.replied_to.count / @tweet.retweets.count.to_f) * 100 %>
 
-      <h3>Has been sent to <%= @tweet.retweets.replied_to.count %> of <%= @tweet.retweets.count %> retweets </h3>
+      <h3>Has been sent to <%= @tweet.retweets.replied_to.count %> of <%= @tweet.retweets.count %> retweets.</h3>
       <div class="progress" style="height: 30px;">
         <div class="progress-bar bg-success" role="progressbar" style="width: <%= percent_replied_to %>%;">
           <%= @tweet.retweets.replied_to.count if @tweet.retweets.replied_to.count > 0 %>

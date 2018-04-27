@@ -2,8 +2,10 @@
   <div class="col">
     <h1>New Reply</h1>
     <%= render partial: 'shared/tweet_card', locals: {tweet: @tweet} %>
+  </div>
 
-    <div style="margin-top: 15px;">
+  <div class="col">
+    <div style="margin-top: 57px;">
       <%= form_for [@tweet, @reply] do |form| %>
         <div class="form-group">
           <%= form.text_area :text, class: 'form-control', placeholder: 'Entry your reply' %>
@@ -11,8 +13,5 @@
         <%= form.submit "Reply", class: 'btn btn-primary', data: {disable_with: 'Replying...'} %>
       <% end %>
     </div>
-
   </div>
-
-  <div class="col"></div>
 </div>

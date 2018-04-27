@@ -19,7 +19,7 @@
       <% if tweeted_at > 48.hours.ago %>
         <p>This reply will be sent for another <%= distance_of_time_in_words(tweeted_at, tweeted_at + 48.hours) %></p>
       <% else %>
-        <p>You've already replied to this for 48 hours.</p>
+        <p style="color:red;">You've already replied to this for 48 hours.</p>
       <% end %>
       <div class="progress" style="height: 30px;">
         <div class="progress-bar bg-success" role="progressbar" style="width: <%= percent_replied_to %>%;">

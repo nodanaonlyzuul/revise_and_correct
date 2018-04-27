@@ -16,10 +16,10 @@
 
       <h3>Has been sent to <%= @tweet.retweets.replied_to.count %> of <%= @tweet.retweets.count %> retweets.</h3>
       <% tweeted_at = @tweet.reply.created_at %>
-      <% if tweeted_at > 48.hours.ago %>
-        <p>This reply will be sent for another <%= distance_of_time_in_words(tweeted_at, tweeted_at + 48.hours) %></p>
+      <% if tweeted_at < 48.hours.ago %>
+        <p style="color:red;">You've already replied to this for 2 days.</p>
       <% else %>
-        <p style="color:red;">You've already replied to this for 48 hours.</p>
+        <p>Your reply will be sent for <%= distance_of_time_in_words(tweeted_at + 48.hours, Time.now) %>.</p>
       <% end %>
       <div class="progress" style="height: 30px;">
         <div class="progress-bar bg-success" role="progressbar" style="width: <%= percent_replied_to %>%;">
